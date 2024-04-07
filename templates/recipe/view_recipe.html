@@ -1,0 +1,157 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block body_block %}
+{% if user.is_authenticated %}
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">View Recipe</h1>
+        <h2 class="text-body-emphasis">{{ wongnok_recipe_obj.1 }}</h2>
+        <h3 class="text-body-emphasis">Rating: {{ wongnok_recipe_obj.7 }} / 5.00</h3>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3 row">
+                <img src="{{ wongnok_recipe_obj.2 }}" class="rounded mx-auto d-block">
+            </div>
+            <div class="mb-3 row">
+                <label for="inputRecipeID" class="col-sm-2 col-form-label">Recipe ID</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputRecipeID" name="inputRecipeID" value="{{ wongnok_recipe_obj.0 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputIngredient" class="col-sm-2 col-form-label">Ingredient</label>
+                <div class="col-sm-10">
+                    <textarea readonly class="form-control" id="inputIngredient" name="inputIngredient">{{ wongnok_recipe_obj.3 }}</textarea>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputStep" class="col-sm-2 col-form-label">Step</label>
+                <div class="col-sm-10">
+                    <textarea readonly class="form-control" id="inputStep" name="inputStep">{{ wongnok_recipe_obj.4 }}</textarea>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputDuration" class="col-sm-2 col-form-label">Duration</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputDuration" name="inputDuration" value="{{ wongnok_recipe_obj.5 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputCookingLevel" class="col-sm-2 col-form-label">Cooking Level</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputCookingLevel" name="inputCookingLevel" value="{{ wongnok_recipe_obj.6 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputOwner" class="col-sm-2 col-form-label">Owner</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputOwner" name="inputOwner" value="{{ wongnok_recipe_obj.8 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputUpdatedTimestamp" class="col-sm-2 col-form-label">Updated Timestamp</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputUpdatedTimestamp" name="inputUpdatedTimestamp" value="{{ wongnok_recipe_obj.9 }}">
+                </div>
+            </div>
+            {% if wongnok_recipe_obj.10 %}
+            <div class="mb-3 row">
+                <label for="inputRatingNon" class="col-sm-2 col-form-label">Rate This Recipe</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="inputRatingNon" name="inputRatingNon" aria-label="Default select example">
+                        <option selected>You cannot rate your own recipe</option>
+                      </select>
+                </div>
+            </div>
+            {% else %}
+            {% if wongnok_recipe_obj.12 %}
+            <div class="mb-3 row">
+                <label for="inputRating" class="col-sm-2 col-form-label">Your Rating for This Recipe</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputRating" name="inputRating" value="{{ wongnok_recipe_obj.13 }}">
+                </div>
+            </div>
+            {% else %}
+            <div class="mb-3 row">
+                <label for="inputRating" class="col-sm-2 col-form-label">Rate This Recipe</label>
+                <div class="col-sm-10">
+                    <select class="form-select" id="inputRating" name="inputRating" aria-label="Default select example">
+                        <option selected value="">Open this select menu</option>
+                        {% for item in wongnok_recipe_obj.11 %}
+                        <option value="{{ item }}">{{ item }}</option>
+                        {% endfor %}
+                      </select>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+            {% if wongnok_recipe_obj.12 %}
+            {% else %}
+            {% if wongnok_recipe_obj.10 %}
+            <button class="btn btn-success w-100 py-2" type="submit">Edit</button>
+            {% else %}
+            <button class="btn btn-success w-100 py-2" type="submit">Rate</button>
+            {% endif %}
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1 class="text-body-emphasis">View Recipe</h1>
+        <h2 class="text-body-emphasis">{{ wongnok_recipe_obj.1 }}</h2>
+        <h3 class="text-body-emphasis">Rating: {{ wongnok_recipe_obj.7 }} / 5.00</h3>
+        <br>
+        <form>
+            <div class="mb-3 row">
+                <img src="{{ wongnok_recipe_obj.2 }}" class="rounded mx-auto d-block">
+            </div>
+            <div class="mb-3 row">
+                <label for="inputRecipeID" class="col-sm-2 col-form-label">Recipe ID</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputRecipeID" name="inputRecipeID" value="{{ wongnok_recipe_obj.0 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputIngredient" class="col-sm-2 col-form-label">Ingredient</label>
+                <div class="col-sm-10">
+                    <textarea readonly class="form-control" id="inputIngredient" name="inputIngredient">{{ wongnok_recipe_obj.3 }}</textarea>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputStep" class="col-sm-2 col-form-label">Step</label>
+                <div class="col-sm-10">
+                    <textarea readonly class="form-control" id="inputStep" name="inputStep">{{ wongnok_recipe_obj.4 }}</textarea>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputDuration" class="col-sm-2 col-form-label">Duration</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputDuration" name="inputDuration" value="{{ wongnok_recipe_obj.5 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputCookingLevel" class="col-sm-2 col-form-label">Cooking Level</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputCookingLevel" name="inputCookingLevel" value="{{ wongnok_recipe_obj.6 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputOwner" class="col-sm-2 col-form-label">Owner</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputOwner" name="inputOwner" value="{{ wongnok_recipe_obj.8 }}">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="inputUpdatedTimestamp" class="col-sm-2 col-form-label">Updated Timestamp</label>
+                <div class="col-sm-10">
+                    <input readonly type="text" class="form-control" id="inputUpdatedTimestamp" name="inputUpdatedTimestamp" value="{{ wongnok_recipe_obj.9 }}">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block head_block %}
+<script>
+    function jumpTo(thisRow) {
+        alert("Do you want to see its details?");
+        url = "{% url 'view_recipe' %}" + '?recipeID=' + thisRow.cells[0].innerHTML + '&rating=' + thisRow.cells[5].innerHTML;
+        window.location = url;
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#allRecipeTable').DataTable({
+            //disable sorting on last column
+            "columnDefs": [
+                { "orderable": false, "targets": 0 }
+            ],
+            language: {
+                //customize pagination prev and next buttons: use arrows instead of words
+                'paginate': {
+                    'previous': '<span class="fa fa-chevron-left"></span>',
+                    'next': '<span class="fa fa-chevron-right"></span>'
+                },
+                //customize number of elements to be displayed
+                "lengthMenu": 'Display <select class="form-control input-sm">' +
+                    '<option value="10">10</option>' +
+                    '<option value="20">20</option>' +
+                    '<option value="30">30</option>' +
+                    '<option value="40">40</option>' +
+                    '<option value="50">50</option>' +
+                    '<option value="-1">All</option>' +
+                    '</select> results'
+            }
+        })
+    });
+</script>
+{% endblock %}
+{% block body_block %}
+<div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+        <h1>All Recipe(s)</h1>
+        <br>
+        <table class="table table-striped" id="allRecipeTable">
+            <thead>
+                <tr>
+                    <th scope="col">Recipe ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Duration</th>
+                    <th scope="col">Cooking Level</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Rating (5.00)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in all_recipe_objs %}
+                <tr onclick="jumpTo(this)" style="cursor: pointer;">
+                    {% for each in obj %}
+                    <td>{{ each }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
